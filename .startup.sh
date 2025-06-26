@@ -39,6 +39,20 @@ cat "${SSH_KEY}.pub"
 echo ""
 read -p "Press enter to continue after the key has been added..."
 
+# Ensure SSH config entry exists
+SSH_CONFIG="$HOME/.ssh/config"
+if ! grep -q "Host github-chezmoi" "$SSH_CONFIG" 2>/dev/null; then
+    {
+        echo ""
+        echo "Host github-chezmoi"
+        echo "    HostName github.com"
+        echo "    User git"
+        echo "    IdentityFile ~/.ssh/chezmoi_deploy_key"
+        echo "    IdentitiesOnly yes"
+    } >> "$SSH_CONFIG"
+    echo "Added SSH config entry for github-chezmoi"
+fi
+
 # Initialize and apply chezmoi using SSH
-chezmoi init d4lan --ssh
+chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
 chezmoi apply
