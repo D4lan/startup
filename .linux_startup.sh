@@ -3,7 +3,7 @@
 # Install chezmoi
 sudo apt update
 sudo apt upgrade
-sudo apt install chezmoi
+sh -c "$(curl -fsLS get.chezmoi.io)"
 
 # Generate SSH key if it doesn't already exist
 SSH_KEY="$HOME/.ssh/chezmoi_deploy_key"
