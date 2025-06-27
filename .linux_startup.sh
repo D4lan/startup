@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Install chezmoi
+sudo apt update
+sudo apt upgrade
 sudo apt install chezmoi
 
 # Generate SSH key if it doesn't already exist
