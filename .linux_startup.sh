@@ -3,7 +3,7 @@
 # Install chezmoi
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get -y install snapd
+sudo apt-get --yes --force-yes install snapd
 sudo snap install chezmoi --classic
 
 # Generate SSH key if it doesn't already exist
