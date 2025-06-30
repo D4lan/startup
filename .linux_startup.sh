@@ -38,5 +38,5 @@ echo ""
 read -p "Press enter to continue after the key has been added..."
 
 # Initialize and apply chezmoi using SSH
-$SNAP/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
-$SNAP/bin/chezmoi apply
+snap/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
+snap/bin/chezmoi apply
