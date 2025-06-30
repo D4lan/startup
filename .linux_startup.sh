@@ -3,7 +3,7 @@
 # Install chezmoi
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get --yes --force-yes install snapd
+sudo apt-get --yes install snapd
 sudo snap install chezmoi --classic
 
 # Generate SSH key if it doesn't already exist
@@ -35,8 +35,8 @@ echo "Add the following SSH public key as a deploy key to your GitHub repository
 cat "${SSH_KEY}.pub"
 
 echo ""
-read -n 1 -s -r -p "Press enter to continue after the key has been added..."
+read -p "Press enter to continue after the key has been added..."
 
 # Initialize and apply chezmoi using SSH
-chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
-chezmoi apply
+$SNAP/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
+$SNAP/bin/chezmoi apply
