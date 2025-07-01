@@ -1,10 +1,11 @@
 #!/bin/sh
 
-# Install chezmoi
+# Update Stuff
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get --yes install snapd
-sudo snap install chezmoi --classic
+
+# Install Homebrew
+mkdir $HOME/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $HOME/homebrew
 
 # Generate SSH key if it doesn't already exist
 SSH_KEY="$HOME/.ssh/chezmoi_deploy_key"
@@ -38,5 +39,5 @@ echo ""
 read -p "Press enter to continue after the key has been added..."
 
 # Initialize and apply chezmoi using SSH
-snap/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
-snap/bin/chezmoi apply
+$HOME/homebrew/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
+$HOME/homebrew/bin/chezmoi apply
