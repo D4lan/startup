@@ -22,6 +22,9 @@ fi
 eval "$("$BREW_BIN" shellenv)"
 echo "Homebrew is now available as: $(command -v brew)"
 
+# Install Chezmoi
+$BREW_BIN install chezmoi
+
 # Generate SSH key if it doesn't already exist
 SSH_KEY="$HOME/.ssh/chezmoi_deploy_key"
 if [ ! -f "$SSH_KEY" ]; then
@@ -52,8 +55,6 @@ cat "${SSH_KEY}.pub"
 
 echo ""
 read -p "Press enter to continue after the key has been added..."
-
-$BREW_BIN install chezmoi
 
 # Initialize and apply chezmoi using SSH
 $BREW_ROOT/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
