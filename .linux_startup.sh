@@ -4,8 +4,23 @@
 sudo apt-get update
 sudo apt-get upgrade
 
-# Install Homebrew
-mkdir $HOME/homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C $HOME/homebrew
+BREW_ROOT="$HOME/homebrew"
+BREW_BIN="$BREW_ROOT/bin/brew"
+
+# Install (if needed)
+if [ -x "$BREW_BIN" ]; then
+    echo "Homebrew already installed at $BREW_BIN"
+else
+    echo "Installing Homebrew to $BREW_ROOT…"
+    # Create prefix folder
+    mkdir -p "$BREW_ROOT"
+    # Clone the Homebrew repo into place
+    git clone https://github.com/Homebrew/brew.git "$BREW_ROOT"
+fi
+
+# Load it for this session
+eval "$("$BREW_BIN" shellenv)"
+echo "Homebrew is now available as: $(command -v brew)"
 
 # Generate SSH key if it doesn't already exist
 SSH_KEY="$HOME/.ssh/chezmoi_deploy_key"
@@ -38,6 +53,8 @@ cat "${SSH_KEY}.pub"
 echo ""
 read -p "Press enter to continue after the key has been added..."
 
+$BREW_BIN install chezmoi
+
 # Initialize and apply chezmoi using SSH
-$HOME/homebrew/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
-$HOME/homebrew/bin/chezmoi apply
+$BREW_ROOT/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
+$BREW_ROOT/bin/chezmoi apply
