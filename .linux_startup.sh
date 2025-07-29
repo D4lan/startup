@@ -3,19 +3,18 @@
 # Update Stuff
 sudo apt-get update
 sudo apt-get upgrade
+sudo apt-get install build-essential
 
-BREW_ROOT="$HOME/homebrew"
-BREW_BIN="$BREW_ROOT/bin/brew"
-
-# Install (if needed)
-if [ -x "$BREW_BIN" ]; then
-    echo "Homebrew already installed at $BREW_BIN"
+# Install Homebrew if necessary
+if command -v brew >/dev/null 2>&1; then
+    echo 'Homebrew is already installed'
 else
-    echo "Installing Homebrew to $BREW_ROOT…"
-    # Create prefix folder
-    mkdir -p "$BREW_ROOT"
-    # Clone the Homebrew repo into place
-    git clone https://github.com/Homebrew/brew.git "$BREW_ROOT"
+
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+    ) >> "$HOME/.zprofile"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Load it for this session
