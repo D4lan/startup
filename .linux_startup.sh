@@ -11,8 +11,7 @@ if command -v brew >/dev/null 2>&1; then
     echo 'Homebrew is already installed'
 else
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    echo 'Homebrew is now installed'
 fi
 
 # Load it for this session
