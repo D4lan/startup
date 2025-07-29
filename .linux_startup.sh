@@ -1,28 +1,25 @@
 #!/bin/sh
 
-# Update Stuff
+# Make sure updated
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install build-essential
+# Used for Homebrew
+sudo apt-get -y install build-essential
 
-# Install Homebrew if necessary
+# Install Homebrew if not installed
 if command -v brew >/dev/null 2>&1; then
     echo 'Homebrew is already installed'
 else
-
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        echo
-        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-    ) >> "$HOME/.zprofile"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Load it for this session
-eval "$("$BREW_BIN" shellenv)"
-echo "Homebrew is now available as: $(command -v brew)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Install Chezmoi
-$BREW_BIN install chezmoi
+brew install chezmoi
 
 # Generate SSH key if it doesn't already exist
 SSH_KEY="$HOME/.ssh/chezmoi_deploy_key"
@@ -56,5 +53,5 @@ echo ""
 read -p "Press enter to continue after the key has been added..."
 
 # Initialize and apply chezmoi using SSH
-$BREW_ROOT/bin/chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
-$BREW_ROOT/bin/chezmoi apply
+chezmoi init git@github-chezmoi:d4lan/dotfiles.git --ssh
+chezmoi apply
